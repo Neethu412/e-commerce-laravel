@@ -12,13 +12,17 @@ use App\Http\Controllers\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('home');
+Route::get('/login',function(){
+return view('login');
 });
-Route::get('/login', function () {
-    return view('login');
-});
-Route::post('/login',[LoginController::class,'login']);
+Route::get('/logout',function(){
+    Session::forget('user');
+    return redirect('/');
+    });
+Route::get('/','App\http\Controllers\HomeController@index');
+// Route::get('/login','App\http\Controllers\LoginController@loginpage');
+Route::post('/login','App\http\Controllers\LoginController@login');
 Route::get('/products','App\http\Controllers\ProductsController@index');
+Route::get('/details/{id}','App\http\Controllers\ProductsController@productdetails');
+Route::post('/addtocart','App\http\Controllers\ProductsController@addtocart');
 

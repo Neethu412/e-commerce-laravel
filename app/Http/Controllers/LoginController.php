@@ -12,11 +12,14 @@ class LoginController extends Controller
         // return $req->input();
         // return $req->username;
         $user =  User::where(['email'=>$req->username])->first();
+        
         // return $user;
         if(!$user||!Hash::check($req->password,$user->password)){
+            // return redirect("/login");
             return "Password does not match";
+
         }else{
-            session(['user' => $user->name]);
+            session(['user' => $user]);
             // return $data = $req->session()->all();
             // echo $value = session('user');
             // die;
@@ -24,5 +27,8 @@ class LoginController extends Controller
         }
 
 
+    }
+    public function loginpage(){
+        return view('login');
     }
 }
